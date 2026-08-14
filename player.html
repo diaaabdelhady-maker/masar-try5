@@ -89,6 +89,12 @@
             <button id="idle-install-btn" class="hidden mt-5 w-full rounded-2xl bg-indigo-600 px-5 py-3 text-sm font-black text-white hover:bg-indigo-700 transition">
                 تثبيت تطبيق البلاير على شاشتك الرئيسية
             </button>
+            <p id="desktop-link-capture-hint" class="hidden mt-4 text-xs leading-6 text-amber-300/90 bg-amber-500/5 border border-amber-400/20 rounded-2xl px-4 py-3 text-right">
+                <strong class="block mb-1 text-amber-200">مهم بعد التثبيت (كمبيوتر فقط):</strong>
+                افتح تطبيق مسار بلاير المثبّت، دوس على القايمة (⋮) فوق، اختار <strong>"إعدادات التطبيق"</strong>،
+                وفعّل خيار <strong>"فتح الروابط المدعومة في هذا التطبيق"</strong>. الخطوة دي مرة واحدة بس،
+                وبعدها كل حصة هتفتح جوا التطبيق مباشرة بدل المتصفح.
+            </p>
         </div>
     </div>
 
@@ -620,6 +626,9 @@
         deferredInstallPrompt = event;
         const btn = document.getElementById('idle-install-btn');
         if (btn && !isStandalonePwa()) btn.classList.remove('hidden');
+        const isMobileDevice = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        const hint = document.getElementById('desktop-link-capture-hint');
+        if (hint && !isMobileDevice && !isStandalonePwa()) hint.classList.remove('hidden');
     });
     document.getElementById('idle-install-btn').addEventListener('click', async () => {
         if (!deferredInstallPrompt) return;
